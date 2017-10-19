@@ -1,0 +1,86 @@
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+
+  <style type="text/css">
+  *,
+    html,
+    body {
+    margin: 0;
+    padding: 0;
+    }
+
+.container {
+    width: 960px;
+    height: 960px;
+    }
+
+.gridSquare {
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    box-sizing: border-box;
+    float: left;
+    }
+
+.clearFloat {
+    clear: both;
+    }
+
+.gridHover {
+    background-color: black;
+    }
+  </style>
+
+</head>
+<body>
+
+<button id="reset">Cick to reset</button>
+<div class="container"></div>
+
+<script>
+    $(document).ready(function() {
+      var boxes = 30;
+
+      function makeBoxes(boxes) {
+      var boxSize = 960 / boxes + "px";
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      };
+      for (y = 0; y < boxes; y++) {
+        for (x = 0; x < boxes; x++) {
+          var divx = $("<div class='gridSquare'></div>");
+          $(".container").append(divx);
+        };
+        var pBreak = $("<div class='clearFloat'></div>");
+        $(".container").append(pBreak);
+      };
+
+      $('.gridSquare').on('mouseenter', function() {
+        $(this).addClass('gridHover');
+        $('.gridHover').css({
+          "background-color": color
+        });
+      });
+      $('.gridSquare').css({
+        "height": boxSize,
+        "width": boxSize
+      });
+    };
+
+    makeBoxes(boxes);
+
+    $('#reset').on('click', function() {
+    $('.gridSquare').removeClass('gridHover');
+    $(".container").empty();
+    var boxes = Number(window.prompt('Enter the number of boxes'));
+    makeBoxes(boxes);
+    });
+    });
+
+</script>
+</body>
+</html>
